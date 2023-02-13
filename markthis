@@ -1,0 +1,25 @@
+#!/bin/sh
+
+data="$(xclip -o | sed 's/\\n/%N/g' | xargs)"
+meta="$(echo "(Optional) Metadata: " | dmenu)"
+letter="$(echo "${meta}" | cut -c 1)"
+isdupe="$(grep -c "${data}$" ~/store/cache/snippets.txt)"
+
+if [ $isdupe -gt 0 ]
+then
+	notify-send "Bookmark Manager Warning" "Duplicate snippet!"
+	exit 1 
+elif [ -z $(echo $data | xargs) ]
+then
+	notify-send "Bookmark Manager warning" "Empty snippet!"
+	exit 1
+fi
+
+if [ "$letter" = "(" ]
+then
+	echo ": $data" >> ~/store/cache/snippets.txt
+	notify-send "Bookmark Manager" "Added : ${data}"
+else
+	echo "$meta : $data" >> ~/store/cache/snippets.txt
+	notify-send "Bookmark Manager" "Added ${meta} : ${data}"
+fi

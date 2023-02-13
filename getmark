@@ -1,0 +1,6 @@
+#!/bin/sh
+
+selected="$(cat ~/store/cache/snippets.txt | dmenu -i -l 20)"
+result=${selected#*: }
+
+xdotool type "${result}"
