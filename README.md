@@ -22,6 +22,7 @@ helpful to group certain snippets together for easier searching.
 - xclip
 - dmenu
 - xdotool
+- notify-send
 
 Almost all of the programs used should be included by default in all Linux distros, however the above you will
 likely need to install.
