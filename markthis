@@ -1,0 +1,19 @@
+#!/bin/sh
+
+data="$(xclip -o | sed 's/\\n/%N/g' | xargs)"
+meta="$(echo "(Optional) Metadata: " | dmenu)"
+letter="$(echo "${meta}" | cut -c 1)"
+isdupe="$(grep -c "${data}$" ~/store/cache/snippets.txt)"
+
+if [ $isdupe -gt 0 ]
+then
+	echo "Duplicate snippet!"
+	exit 1 
+fi
+
+if [ "$letter" = "(" ]
+then
+	echo ": $data" >> ~/store/cache/snippets.txt
+else
+	echo "$meta : $data" >> ~/store/cache/snippets.txt
+fi

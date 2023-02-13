@@ -1,0 +1,6 @@
+#!/bin/sh
+
+selected=$(cat ~/store/cache/snippets.txt | dmenu -i -l 20)
+
+echo "$(fgrep -v "${selected}" ~/store/cache/snippets.txt)" > ~/store/cache/snippets.txt
+sed -i '/^$/d' ~/store/cache/snippets.txt
